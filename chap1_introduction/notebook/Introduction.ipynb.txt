@@ -1,0 +1,785 @@
+{
+ "cells": [
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "# Eléments de base\n",
+    "\n",
+    "## Exécuter un programme en Python\n",
+    "\n",
+    "Deux versions de Python continuent à coexister : **Python 2** et **Python 3**. Pour ce qui concerne le cours, la référence sera la version **3.6**.\n",
+    "\n",
+    "Lorsque le langage est installé sur votre machine (ce qui est le cas ici), exécuter un programme se fait très simplement depuis la ligne de commande avec la commande **python**. Pour cela, voous aurez naturellement ouvert au préalable un terminal.\n",
+    "\n",
+    "La manière la plus simple de tester le langage est donc la version interactive, qui se lance ainsi :\n",
+    "\n",
+    "```python\n",
+    "python\n",
+    "\n",
+    "# Pour afficher les options d'exécution :\n",
+    "python --help\n",
+    "```\n",
+    "\n",
+    "Une fois l'interpréteur lancé, vous pouvez, par exemple, commencer par lire le manifeste de Python, écrit par Tim Peters."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "import this"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "`import`est un des **mots réservés** du langage, qui nous permettra, un peu plus tard d'écrire des programmes véritablement modulaires.\n",
+    "\n",
+    "Les mots réserevés constituent la synaxe propre du langage et ne peuvent pas être redéfinis par les développeurs.\n",
+    "\n",
+    "Vous remarquerez que, comme nous utilisons un _« notebook »_ Jupyter, nous pouvons directement exécuter du code Python sans avoir à lancer l'interpréteur. Jupyter le fait silencieusement pour nous."
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## Les bases du langage\n",
+    "\n",
+    "Python, comme la grande majorité des langages de programmation, se compose de quelques grandes catégories de notion :\n",
+    "\n",
+    "- les **types**, très souvent associés a une autre notion de base : \n",
+    "- les **variables**, qui servent à mémoriser des **valeurs**\n",
+    "- les **opérateurs**, qui sont les outils de construction des **expressions**\n",
+    "- les **structures de contrôle**, dont le rôle est de ré-organiser le flux d'exécution du programme\n",
+    "- les **fonctions**, qui permettent de découper un programme en tâches indépendantes les unes des autres\n",
+    "- les **exceptions**, qui visent à traiter et pallier les erreurs d'exécution des programmes\n",
+    "- les **objets**, paradigme en soi de la programmation, basé sur la métaphore d'objets (ou agents, ou acteurs) du monde réel interagissant par des échanges de messages.\n",
+    "\n"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "### Les variables\n",
+    "\n",
+    "En Python, une variable est un symbole, dont la valeur est définie au travers de l'opérateur d'affectation, représenté par le signe `=`. Ainsi, la chose la plus simple à faire est d'écrire : "
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "variable_a = 20;"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "On remarquera plusieurs choses à partir de cette simple ligne.\n",
+    "\n",
+    "- Elle a la perticularité d'être à la fois un expression (car le signe `=` est un opérateur) et un instruction (car elle constitue uncode source autonome pouvant être exécuté par la machine)\n",
+    "- La ligne se termine par un point-virgule, qui est traditionnellement le **séparateur d'instruction** dans les langages de programmation, mais celui-ci est optionnel en Python, comme en JavaScript, par exemple (nous reviendrons un peu plus tard sur cette question)\n",
+    "- il existe des conventions de nommage pour les variables :\n",
+    "    - en premier lieu, bien sûr, elles ne peuvent pas reprendre un des mots réservés du langage (comme `import` que nous venons de voir)\n",
+    "    - il existe un certain nombre de convention de nommage (indicatives, donc, mais recommandées) que l'on peut lire dans le document [PEP 8](https://www.python.org/dev/peps/pep-0008/#naming-conventions)\n",
+    "    - les noms des variables commencent toujours, soit par une lettre, soit par le caractère `_` cette dernière solution étant déconseillés (pour des raisons expliquées par la suite).\n",
+    "\n",
+    "**N.B.** :[La liste des mots réservés de Python 3](https://docs.python.org/3/reference/lexical_analysis.html#keywords)\n",
+    "\n",
+    "**N.B. :** les PEP (Python Enhancement Proposals) contituent un ensemble de propositions de bonnes pratiques et/ou d'améliorations de Python.\n",
+    "\n",
+    "Une autre remarque importante est que Python ne sait maipuler que des variables, c'est-à-dire qu'il n'y a pas de notion de **constante** ou de **variable immuable**. ce qui est une limite de Python pour la programmation fonctionnelle. Une conséquence est que la valeur affectée à une variable peut être modifiée à tout moment.\n",
+    "\n",
+    "A partir de cela, nous pouvons commencer à opérer sur les variables. Par exemple, la première chose possible est d'afficher la valeur d'une variable :"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "print(variable_a)\n",
+    "\n",
+    "# Changeons la valeur\n",
+    "variable_a = 50\n",
+    "print(variable_a)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "**N.B. :** Le caractère `#` (croisillon) permet de parsemer le code source de **commentaires**, non exécutés par la machine, mais qui rendnet le code plus lisible.\n",
+    "\n",
+    "### Types\n",
+    "\n",
+    "Toute variable en Python (voire toute expression) est associée à un **type**. Pour y avoir accès, il suffit d'utiliser la fonctin `type`.\n"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "type(variable_a)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "On notera quele résultat qui s'affiche n'est pas une chaîne de caractère mais une « représentation » d'un objet interne de Python, ce qui nous est indiqué par les chevrons.\n",
+    "\n",
+    "Comme une variable peut changer à tout moment de valeur, elle peut tout aussi bien changer de type :"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 2,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "str"
+      ]
+     },
+     "execution_count": 2,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "variable_a = \"Don't panic !\"\n",
+    "type(variable_a)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "Comme vous le voyez, nous n'avons pas besoin de préciser quoi que ce soit à Python. Le typage des variables est **implicite** (Python détermine par lui-même le type d'une variable) et dynamique (Python détermine le type au moment de l'exécution du programme).\n",
+    "\n",
+    "**N.B. :** Python est un langage interprété. Cela veut dire que Python transforme à chaque exécution le code source en code machine. Il existe néanmoins des outils pour compiler des programmes écrits en Python, qui est une sourcouche de C.\n",
+    "\n",
+    "Python définit une liste de types « natifs », que l'on peut séparer en trois grandes catégories :\n",
+    "\n",
+    "- les types scalaires\n",
+    "- les types composés\n",
+    "- les types complexes\n",
+    "\n",
+    "Pour cette première partie de prise en main, nous nous intéresserons aux types scalaires. Ils sont en nombre limités :\n",
+    "\n",
+    "- les chaînes de caractères (str)\n",
+    "- les valeurs booléennes (bool)\n",
+    "- les valeurs numériques\n",
+    "    - entiers (int)\n",
+    "    - réels (float)\n",
+    "    - complexes (complex)\n",
+    "    \n",
+    "Chaque type est associé à un ensemble de fonctions et d'opérateurs qui ne seront pas traités ici de manière exhaustive mais que l'on peut très facilement retrouver dans la documentation.\n",
+    "\n",
+    "Parmi les opérations de base sur les types, Python permet deux choses :"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 5,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "False"
+      ]
+     },
+     "execution_count": 5,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "# Savoir si une valeur est d'un certain type\n",
+    "isinstance(24, int)\n",
+    "isinstance(\"...et merci pour le poisson\", str)\n",
+    "isinstance(True, bool)\n",
+    "\n",
+    "# Imposer un certain type à une valeur (transtypage)\n",
+    "int(32.258)\n",
+    "str(258)\n",
+    "str(int(0.2569))\n",
+    "bool(0)\n",
+    "bool(1)\n",
+    "float(\"fgsdgsgf\")"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "Naturellement, le transtypage ne garantit pas que vous obtiendrez ce que vous souhaitez, et certaines transformations sont même interdites, comme vous pouvez le voir ci-dessus."
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "### Opérateurs\n",
+    "\n",
+    "Les opérateurs permettent de composer des **expression**. Une expression, dans un langage de programmation est définie comme quelque chose qui prend une valeur. Les expressions sont généralement définies de manière _récursive_ :\n",
+    "\n",
+    "Opérande := Variable | Fonction | Valeur\n",
+    "Expression := Opérande \n",
+    "Expression := Opérateur Opérande | Opérande Opérateur | Opérande Opérateur Opérande\n",
+    "_# (ceci est une version simplifiée)_\n",
+    "\n",
+    "Comme vous le voyez, les opérateurs peuvent se combiner de manières différentes. Gloablement, il y a 3 possibilités :\n",
+    "\n",
+    "- les opérateurs unaires préfixes (comme par exemple : `+4`)\n",
+    "- les opérateurs unaires suffixes (comme par exemple : `5--`)\n",
+    "- les opérateurs binaires infixes (les plus courants, e.g. `4 + 5`)\n",
+    "\n",
+    "Il existe aussi un **opérateur ternaire** dont il sera question plus tard.\n",
+    "\n",
+    "La sémantique des opérateurs dépend évidemment du type des variables.\n",
+    "\n",
+    "Les grandes catégories d'opérateurs sont :\n",
+    "\n",
+    "- les opérateurs arithmétiques\n",
+    "- les opératuers de comparaison\n",
+    "- les opérateurs logiques\n",
+    "- les opérateurs d'affectation\n",
+    "- les opérateurs sur les bits\n",
+    "- les opérateurs d'identité\n",
+    "- les opérateurs d'appartenance\n",
+    "\n",
+    "#### Opérateurs arithmétiques\n"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "# Addition\n",
+    "4 + 5\n",
+    "# Soustraction\n",
+    "24 - 2\n",
+    "# Multiplication\n",
+    "32 * 4\n",
+    "# Division\n",
+    "35 / 9\n",
+    "# Division entière\n",
+    "35 // 9\n",
+    "# Modulo\n",
+    "35 % 9\n",
+    "# Exponentiation\n",
+    "2 ** 3"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "**N.B. :** On notera l'absence d'opérateurs unaires d'incrémentation et de décrémentation.\n",
+    "\n",
+    "#### Sur les chaînes de caractères\n",
+    "\n",
+    "En Python, les chaînes de caractères sont considéréres comme des séquences et, tant que telles, il n'y a pas d'opérateur spécifique. On ne lui connaît guère que la concaténation et la répétition :"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 10,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "Play it again, Sam!\n",
+      "SamSamSamSam\n"
+     ]
+    }
+   ],
+   "source": [
+    "# Concaténation\n",
+    "prenom = \"Sam\"\n",
+    "replique = \"Play it again, \"+prenom+\"!\"\n",
+    "print(replique)\n",
+    "\n",
+    "#R&pétition\n",
+    "echo = prenom * 4;\n",
+    "print(echo)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "L'opérateur `+` est appelé **polymorphe** car il peut s'appliquer à des expressions de types differents et donner un résultat _en fonction du type_ qu'il rencontre.\n",
+    "\n",
+    "Les chaînes de caractères Python sont délimités indifféremment par des guillemets simples ou doubles. Les « guillemets triples » permettent même des chaînes sur plusieurs lignes."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "# Simples\n",
+    "print('Marvin the robot')\n",
+    "# Doubles\n",
+    "print(\"Marvin the robot\")\n",
+    "# Triples\n",
+    "print('''Marvin\n",
+    "the\n",
+    "robot''')"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "Comme dans d’autres langages, Python a intégré une manière plus « moderne » de composer des chaînes de caractères avec le _modificateur_ `f`, qui permet d'introduire des variables dans les chaînes de caractères :"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 6,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "Play it again, Sam!\n"
+     ]
+    }
+   ],
+   "source": [
+    "prenom = \"Sam\"\n",
+    "replique = f\"Play it again, {prenom}!\"\n",
+    "print(replique)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "Cette syntaxe rend beaucoup plus lisible le code des programmes.\n",
+    "\n",
+    "#### Les opérateurs de comparaison\n"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "# Egalité\n",
+    "3 == 3\n",
+    "# Non égalité\n",
+    "3 != 4\n",
+    "3 <> 4\n",
+    "# Supériorité stricte\n",
+    "4 > 3\n",
+    "# Infériorité stricte\n",
+    "3 < 4\n",
+    "# Supériorité\n",
+    "4 >= 3\n",
+    "# Infériorité\n",
+    "3 <= 4"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "**N.B. :** Contrairement à PHP ou JavaScript, il n'y a pas d‘**égalité stricte**. Ainsi :"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "# False\n",
+    "3 == \"3\"\n",
+    "\n",
+    "#Mais... True\n",
+    "3.0 == 3"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "#### Les opérateurs logiques\n",
+    "\n",
+    "Les opérateurs logiques ont un comportement particulier en Python, puisqu'ils ne retournet pas systématiquement une valeur booléenne. Le résultat dépend de l'&valuation des membres de l'équation. Enfonction de cela, la valeur de l'un des deux membres est retournée."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "# Ou logique\n",
+    "# -- renvoie le membre gauche\n",
+    "print (True or False)\n",
+    "print (True or 20)\n",
+    "print (10 or 20)\n",
+    "# -- renvoie le membre droit\n",
+    "print (False or \"Oups !\")\n",
+    "print (0 or 20)\n",
+    "\n",
+    "# Et logique\n",
+    "# -- renvoie le membre gauche\n",
+    "print (True and False)\n",
+    "print (True and 20)\n",
+    "print (10 and 20)\n",
+    "# -- renvoie le membre droit\n",
+    "print (False and \"Oups !\")\n",
+    "\n",
+    "# Négation logique\n",
+    "print(not(True and 20))\n",
+    "print(not \"WTF\")\n",
+    "print (not 0)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "\n",
+    "#### Les opérateurs d'affectation\n"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 7,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "# Affectation simple\n",
+    "v1 = 20\n",
+    "v2 = 10\n",
+    "v3 = v1 + v2\n",
+    "\n",
+    "# Opérateurs combinés\n",
+    "v3 += 2\n",
+    "v3 -= 1\n",
+    "v3 *= 10\n",
+    "v3 /= 5\n",
+    "v3 **= 3\n",
+    "v3 //= 2\n",
+    "v3 %= 2"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "\n",
+    "#### Les opérateurs sur les bits\n",
+    "\n",
+    "Grâce à ces opérateurs, il est possiblede manipuler les représentations numériques internes (binaires) des valeurs."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "a = 60            # 60 = 0011 1100 \n",
+    "b = 13            # 13 = 0000 1101 \n",
+    "\n",
+    "# OU binaire\n",
+    "a | b             # 61 = 0011 1101 \n",
+    "# OU EXCLUSIF binaire\n",
+    "a ^ b             # 49 = 0011 0001 \n",
+    "# ET binaire\n",
+    "a & b             # 61 = 0000 1100 \n",
+    "# Inversion\n",
+    "~ a               # -61 = 1100 0011 \n",
+    "# Décalage à gauche\n",
+    "a << 1            # 240 = 0111 1000 \n",
+    "# Décalage à droite\n",
+    "a >> 1            # 30 = 0001 1110 "
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "On voit notamment que les opérateurs de décalage permettent très facilement, et pour un coût de calcul très faible, de faire des multiplicartions/divisions par des puissances de 2."
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "\n",
+    "#### Opérateur d'appartenance\n",
+    "\n",
+    "L‘opérateur d'appartenance permet de savoir si un élément fait partie d'un ensemble. Il opére donc sur des listes ou des séquences, qui sont des types composés. \n",
+    "\n",
+    "Néanmoins, nous avons vu que les chaînes de caractères se comportent comme des séquences. Il est donc possible de leur apliquer cet opérateur."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "# Inclus\n",
+    "\"A\" in \"ABBA\"  # True\n",
+    "\n",
+    "# Non inclus\n",
+    "\"X\" not in \"ABBA\"  # True"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "\n",
+    "#### Opérateur d'identité\n",
+    "\n",
+    "L'identité se diférencie de l'égalité en ce sens qu'elle ne s'intéresse pas à la valeur elle-même mais à l'objet en mémoire référencé par une variable."
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## Premier programme en Python\n",
+    "\n",
+    "### Introduction\n",
+    "\n",
+    "Jusqu'ici, nous avons surtout utilisé Python de manière interactive, mais c'est évidemment peu efficace pour des applications réelles.\n",
+    "\n",
+    "Pour écrire un programe Python, il suffit d'ouvrir un éditeur de code (PyCharm, Atom, VSCode, etc.) et d'écrire la séquence d'instruction que l'on veut exécuter. On sauvegardera le fichier avec l'extension **.py**.\n",
+    "\n",
+    "Premier exemple : Un nombre est-il le diviseur d'autre nombre ?"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 9,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "True\n"
+     ]
+    }
+   ],
+   "source": [
+    "nombre_1 = 25\n",
+    "nombre_2 = 5\n",
+    "\n",
+    "resultat = nombre_1 % nombre_2\n",
+    "\n",
+    "print(not bool(resultat))"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "Enregistrons ce code dans le fichier **diviseur.py**.\n",
+    "Il ne reste maintenant qu'à lexécuter dans le terminalpar la commande :\n",
+    "\n",
+    "```python\n",
+    "python diviseur.py\n",
+    "```\n",
+    "\n",
+    "### Des arguments pour le programme\n",
+    "\n",
+    "Notre programme est encore trop peu flexible puisquee toutes les données sont contenues dans le code, ce qui n'est évidemment pas une bonne pratique. Nous souhaiterions donc pour fournir au moment de l'exécution les valeurs à prendre ne compte.\n",
+    "\n",
+    "Pour cela, il faut avoir recours à une « extension » du langage. En effet, la majeure partie des fonctionnalités de Python se trouve dans des bibliothèques externes que l'on charge avec la commande `import`.\n",
+    "\n",
+    "Ici nous avons besoin de la bibliothèque `argparse` :\n",
+    "\n",
+    "```python\n",
+    "import argparse\n",
+    "```\n",
+    "\n",
+    "Mais l'on peut faire aussi un peu mieux si l'on connaît les ressources de cette bibliothèque dont on a spécifiquement besoin, ici `ArgumentParser` :\n",
+    "\n",
+    "```python\n",
+    "from argparse import ArgumentParser\n",
+    "```\n",
+    "\n",
+    "Les deux versions sont fonctionnellemnt identiques ; la seconde permettra d'alléger l'écriture du code.\n",
+    "\n",
+    "`ArgumentParser`va nous permettre de passer au programme des valeurs que vous voudrions écrire dans la commande. Par exemple :\n",
+    "\n",
+    "\n",
+    "```python\n",
+    "python diviseur.py 25 4\n",
+    "```\n",
+    "\n",
+    "Pour cela, voilà ce que nous devons ajouter au code source de notre script :\n",
+    "\n",
+    "```python\n",
+    "# Initialisation de l'analyseur syntaxique\n",
+    "parser = ArgumentParser()\n",
+    "# Description des valeurs attendues dans la ligne de commande\n",
+    "parser.add_argument(dest=\"nombre_1\", type=int, help=\"Premier nombre\")\n",
+    "parser.add_argument(dest=\"nombre_2\", type=int, help=\"Second nombre\")\n",
+    "# Analyse de la commande\n",
+    "input_args = parser.parse_args()\n",
+    "# Import des valeurs dans le programme\n",
+    "nombre_1 = input_args.nombre_1\n",
+    "nombre_2 = input_args.nombre_2\n",
+    "```\n",
+    "\n",
+    "**Documentation de l'analyseur d'arguments** : [argparse.ArgumentParser](https://docs.python.org/fr/3/howto/argparse.html#the-basics)\n",
+    "\n",
+    "### Le Shebang\n",
+    "\n",
+    "On voudrait encore simplifier la commande, par exemple ne plus avoir à indiquer l'interpréteur `python` :\n",
+    "\n",
+    "```python\n",
+    "diviseur 25 4\n",
+    "```\n",
+    "\n",
+    "Pour cela, il suffit :\n",
+    "\n",
+    "a) d'indiquer **sur la première ligne** du fichier source, la directive suivante :\n",
+    "\n",
+    "```python\n",
+    "#! /usr/bin/env python\n",
+    "```\n",
+    "\n",
+    "La séquence `#!` (le _shebang_ ou hash-bang) permet au système de détecter quel est le programme qui doit exécuter le code source. Celui-ci est indiqué juste après : il s'agit ici de l'interpréteur `python` tel que défini dans l'environnement système.\n",
+    "\n",
+    "Le programme correspondant à la commande `python` peut être identifié avec la commande système :\n",
+    "\n",
+    "```bash\n",
+    "which python\n",
+    "```\n",
+    "\n",
+    "Le suffixe du fichier source n'étant pas obligatoire, on peut renommer ce dernier :\n",
+    "\n",
+    "```bash\n",
+    "mv diviseur.py diviseur\n",
+    "```\n",
+    "\n",
+    "et notre nouvelle commande est prête."
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "\n",
+    "## Documenter le code \n",
+    "\n",
+    "Une des bonnes pratiques en programmation est de mettre des **commentaires** à l'intérieur du code source, de manière à :\n",
+    "\n",
+    "- spécifier semi-formellement le fonctionnement du code\n",
+    "- permettre une meilleure relecture du code\n",
+    "- permettre une meilleure transmission du code (notamment en indiquant le » reste-à-faire » (TODOS)\n",
+    "- créer automatiquement la documentation technique du logiciel une fois celui-ci achevé\n",
+    "\n",
+    "En Python, la documentation se fait au travers de **docstrings**, mrquées par des triples guillements.\n"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 2,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "14\n"
+     ]
+    }
+   ],
+   "source": [
+    "#! /usr/bin/env python\n",
+    "\"\"\"\n",
+    "    Le plus petit module\n",
+    "    ======================\n",
+    "    \n",
+    "    Ajoute deux nombres l'un à l'autre et retourne\n",
+    "    le résultat.\n",
+    "\"\"\"\n",
+    "a = 5\n",
+    "b = 9\n",
+    "print(a + b)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "\n",
+    "Les docstrings peuvent être sur une ou plusieurs lignes. Et il ne faut pas hésiter à en mettre partout.\n",
+    "\n",
+    "Comme vous pouvez le voir dans l'exemple ci-dessus, il est possible de décorer le texte du commentaire avec une syntaxe de type **Markdown**.\n",
+    "\n",
+    "**Référence** : [Markdown](https://commonmark.org/help/)\n",
+    "\n",
+    "La doumentation d'un programme peut être affichée dans la console avec la commande **pydoc**.\n",
+    "\n",
+    "```sh\n",
+    "pydoc <nom_de_module>\n",
+    "```\n",
+    "_(Le nom du module étant le nom du fichier sans le suffixe '.py')_\n",
+    "\n",
+    "**Documentation** : [pydoc](https://docs.python.org/3.8/library/pydoc.html)\n",
+    "\n",
+    "Nous reviendrons plus en détail sur les options de documentation dans les sections prochaines."
+   ]
+  }
+ ],
+ "metadata": {
+  "kernelspec": {
+   "display_name": "Python 3",
+   "language": "python",
+   "name": "python3"
+  },
+  "language_info": {
+   "codemirror_mode": {
+    "name": "ipython",
+    "version": 3
+   },
+   "file_extension": ".py",
+   "mimetype": "text/x-python",
+   "name": "python",
+   "nbconvert_exporter": "python",
+   "pygments_lexer": "ipython3",
+   "version": "3.6.9"
+  }
+ },
+ "nbformat": 4,
+ "nbformat_minor": 2
+}
